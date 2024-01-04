@@ -34,7 +34,8 @@ To check the operating system run the following command:
 uname
 ```
 Output:  
-Linux
+Linux  
+
 To check the distributor run the following command:
 ```
 cat /etc/os-release
@@ -173,10 +174,80 @@ Warning: The standard parity is set to 0. This can lead to data loss.
 Access the MinIO Console by going to a browser and going to http://127.0.0.1:9000 or http://127.0.0.1:9090.
 
 After going to the link you will see the MinIO console:
-![Alt text](image.png)
+![image](https://github.com/b02k11/MinIO/assets/132880648/00bfa3ae-1ec9-4b77-9d7c-22d87757f6b8)
+
 ### Install MinIO client 
 The MinIO Client allows you to work with your MinIO volume from the commandline.
+To install the minio client run the following command:
 ```
-mc alias set local http://127.0.0.1:9000 {MINIO_ROOT_USER} {MINIO_ROOT_PASSWORD}
+mc alias set myminio http://127.0.0.1:9000 {MINIO_ROOT_USER} {MINIO_ROOT_PASSWORD}
 ```
 Change the {MINIO_ROOT_USER} with your MinIO username and {MINIO_ROOT_PASSWORD} to your MinIO password.
+### Test the connection 
+Use the mc admin info command to test the connection to the newly added MinIO deployment:
+```
+mc admin info myminio
+```
+Output:
+```
+●  127.0.0.1:9000
+   Uptime: 59 minutes 
+   Version: 2023-12-20T01:00:02Z
+   Network: 1/1 OK 
+   Drives: 1/1 OK 
+   Pool: 1
+
+Pools:
+   1st, Erasure sets: 1, Drives per erasure set: 1
+
+31 KiB Used, 1 Bucket, 2 Objects, 2 Versions
+1 drive online, 0 drives offline
+
+```
+### Create a bucket in MinIO
+You can create a new bucket by following command:
+```
+mc mb myminio/test-bucket
+```
+This command will create a bucker named test-bucket.
+OUTPUT:
+Bucket created successfully `myminio/test-bucket`.
+To check the list of bucket use the following command:
+```
+mc ls myminio
+```
+OUTPUT:
+[2023-12-20 19:28:25 IST]     0B sample-bucket/
+[2024-01-04 17:48:58 IST]     0B test-bucket/
+
+### Upload an object/file in bucket
+To upload an object in the bucket run the following command:
+```
+mc cp /home/brijesh/Documents/Linux_command.md myminio/test-bucket/Linux_command.md
+```
+mc cp path/to/file myminio/bucketName/objectName
+OUTPUT:
+...command.md: 5.12 KiB / 5.12 KiB ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 475.85 KiB/s 0s
+### The object inside a bucket
+To see the list of objects inside a bucket run the following command:
+```
+mc ls myminio/test-bucket
+```
+OUTPUT:
+[2024-01-04 17:54:33 IST] 5.1KiB STANDARD Linux_command.md
+### Remove object/Bucket 
+To remove an object from bucket:
+```
+mc rm myminio/test-bucket/Linux_command.md
+```
+OUTPUT:
+Removed `myminio/test-bucket/Linux_command.md`.
+To remove multiple object simultaneously
+mc rm myminio/bucketname/objectname1 [objectname2 ...]
+
+To remove a bucket bucket from MiniIO run the following command:
+```
+mc rb myminio/test-bucket
+```
+OUTPUT:
+Removed `myminio/test-bucket` successfully.
