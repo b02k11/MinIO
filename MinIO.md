@@ -29,6 +29,7 @@ uname -m
 ```
 Output:  
 x86_64  
+
 To check the operating system run the following command:
 ```
 uname
@@ -177,18 +178,50 @@ After going to the link you will see the MinIO console:
 ![image](https://github.com/b02k11/MinIO/assets/132880648/00bfa3ae-1ec9-4b77-9d7c-22d87757f6b8)
 
 ### Install MinIO client 
-The MinIO Client allows you to work with your MinIO volume from the commandline.
-To install the minio client run the following command:
+The MinIO Client allows you to work with your MinIO volume from the commandline.  
+
+The following commands add a temporary extension to your system PATH for running the mc utility
+```
+curl https://dl.min.io/client/mc/release/linux-amd64/mc \
+  --create-dirs \
+  -o $HOME/minio-binaries/mc
+
+chmod +x $HOME/minio-binaries/mc
+export PATH=$PATH:$HOME/minio-binaries/
+
+mc --help
+```
+The mc alias set command adds or updates an alias to the local mc configuration.
 ```
 mc alias set myminio http://127.0.0.1:9000 {MINIO_ROOT_USER} {MINIO_ROOT_PASSWORD}
 ```
-Change the {MINIO_ROOT_USER} with your MinIO username and {MINIO_ROOT_PASSWORD} to your MinIO password.
+ALIAS  
+Required The name to associate to the S3-compatible service.
+
+URL  
+Required The URL to the S3-compatible service endpoint. For example:
+
+https://minio.example.net
+
+ACCESSKEY    
+Required  
+
+
+The access key for authenticating to the S3 service.  
+
+SECRETKEY  
+Required  
+
+The secret key for authenticating to the S3 service.  
+
+Change the {MINIO_ROOT_USER} with your MinIO username and {MINIO_ROOT_PASSWORD} to your MinIO password.  
+
 ### Test the connection 
 Use the mc admin info command to test the connection to the newly added MinIO deployment:
 ```
-mc admin info myminio
+mc admin info myminio  
 ```
-Output:
+Output:  
 ```
 ●  127.0.0.1:9000
    Uptime: 59 minutes 
@@ -204,50 +237,52 @@ Pools:
 1 drive online, 0 drives offline
 
 ```
-### Create a bucket in MinIO
+### Create a bucket in MinIO  
 You can create a new bucket by following command:
 ```
 mc mb myminio/test-bucket
 ```
-This command will create a bucker named test-bucket.
-OUTPUT:
+This command will create a bucker named test-bucket.  
+OUTPUT:  
 Bucket created successfully `myminio/test-bucket`.
-To check the list of bucket use the following command:
+To check the list of bucket use the following command:  
 ```
 mc ls myminio
 ```
-OUTPUT:
-[2023-12-20 19:28:25 IST]     0B sample-bucket/
+OUTPUT:  
+[2023-12-20 19:28:25 IST]     0B sample-bucket/  
 [2024-01-04 17:48:58 IST]     0B test-bucket/
 
-### Upload an object/file in bucket
+### Upload an object/file in bucket  
 To upload an object in the bucket run the following command:
 ```
 mc cp /home/brijesh/Documents/Linux_command.md myminio/test-bucket/Linux_command.md
 ```
-mc cp path/to/file myminio/bucketName/objectName
-OUTPUT:
-...command.md: 5.12 KiB / 5.12 KiB ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 475.85 KiB/s 0s
-### The object inside a bucket
+mc cp path/to/file myminio/bucketName/objectName  
+
+OUTPUT:  
+...command.md: 5.12 KiB / 5.12 KiB ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 475.85 KiB/s 0s  
+
+### The object inside a bucket  
 To see the list of objects inside a bucket run the following command:
 ```
 mc ls myminio/test-bucket
-```
-OUTPUT:
-[2024-01-04 17:54:33 IST] 5.1KiB STANDARD Linux_command.md
-### Remove object/Bucket 
-To remove an object from bucket:
+```  
+OUTPUT:  
+[2024-01-04 17:54:33 IST] 5.1KiB STANDARD Linux_command.md  
+### Remove object/Bucket     
+To remove an object from bucket:  
 ```
 mc rm myminio/test-bucket/Linux_command.md
-```
-OUTPUT:
-Removed `myminio/test-bucket/Linux_command.md`.
-To remove multiple object simultaneously
-mc rm myminio/bucketname/objectname1 [objectname2 ...]
+```  
+OUTPUT:  
+Removed `myminio/test-bucket/Linux_command.md`.  
+To remove multiple object simultaneously   
+mc rm myminio/bucketname/objectname1 [objectname2 ...]  
 
-To remove a bucket bucket from MiniIO run the following command:
+To remove a bucket bucket from MiniIO run the following command:   
 ```
 mc rb myminio/test-bucket
-```
-OUTPUT:
+```  
+OUTPUT:  
 Removed `myminio/test-bucket` successfully.
