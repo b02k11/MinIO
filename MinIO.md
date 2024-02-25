@@ -1,20 +1,52 @@
+# Table of Content  
+
+[MinIo](#minio)  
+[Key Features of MinIO](#key-features-of-minio)  
+[Difference between object storage, file storage and block storage](#difference-between-object-storage-file-storage-and-block-storage)  
+[Step by step guide to installation and setup](#step-by-step-guide-to-installation-and-setup)  
+
+
 # MinIO
 MinIO is an open-source, high-performance object storage system that is designed for cloud-native applications. It provides an Amazon S3-compatible API, allowing developers to use MinIO as a drop-in replacement for Amazon S3 in their applications. MinIO is often used for storing and retrieving large amounts of unstructured data, such as documents, images, videos, and other types of binary data.
 
-## Key features of MinIO
+# Key Features of MinIO
 **S3 Compatibility**  
 MinIO is designed to be fully compatible with the Amazon S3 API. This compatibility ensures that applications and tools built to work with Amazon S3 can seamlessly integrate with MinIO, making it easy for developers to switch between the two without major modifications
 
 **High Performance**  
-MinIO is optimized for high performance, providing low-latency and high-throughput access to stored objects. It is designed to handle large-scale data-intensive workloads efficiently.The high performance of MinIO makes it well-suited for use cases where rapid access to large amounts of data is crucial, such as in big data analytics, content delivery networks (CDNs), and other high-performance computing scenarios.  
+MinIO is optimized for high performance, providing low-latency and high-throughput access to stored objects. It is designed to handle large-scale data-intensive workloads efficiently.The high performance of MinIO makes it well-suited for use cases where rapid access to large amounts of data is crucial, such as in big data analytics, content delivery networks (CDNs), and other high-performance computing scenarios.   
+
+
 **Scalability**  
 Scalability is a key consideration for organizations dealing with ever-growing datasets. MinIO's ability to scale horizontally provides a cost-effective and efficient way to address increasing storage demands.
+
+# Difference between object storage, file storage and block storage  
+
+**Object storage** is a storage architecture that manages data as objects rather than files or blocks. Object storage is highly scalable and suitable for storing large amounts of unstructured data such as images, videos, documents, backups, and log files.
+Examples include Amazon S3, Google Cloud Storage, and Minio.  
+
+**File storage** is a storage system that organizes data into a hierarchical structure of files and directories.  
+
+**Block storage** involves storing data in fixed-size blocks, each with its own address but lacking any metadata or structure.  
 
 ## Prerequisites
 * Docker or Podman installed
 * Read, write, and delete access to the folder or drive used for the persistent volume.
 
-# Step by step guide to installation and setup
+## System Requirement
+**Operating System:** Minio supports various operating systems including Linux, macOS, and Windows.   
+
+**CPU:** A multi-core CPU is recommended for better performance, but Minio can run on a single-core CPU.   
+
+**RAM:** At least 4GB of RAM is recommended, but the actual requirement depends on the workload and data size.  
+
+**Disk Space:** The amount of disk space needed depends on the amount of data you plan to store. Minio itself is lightweight, but you'll need enough space for your object data.  
+
+**Network:** A stable network connection is essential for Minio to serve and receive data efficiently.  
+
+
+
+# Step by step guide to installation and setup  
 If you do not have Docker or Podman installed. You need to install any one of them.
 To install Docker Engine, you need the 64-bit version of one of these Ubuntu versions:
 
@@ -78,7 +110,7 @@ To install the lattest version run:
 ```
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
-### Step 3: Varification
+### Step 3: Verification
 Verify that the Docker Engine installation is successful by running the hello-world image
 ```
 sudo docker run hello-world
@@ -102,7 +134,7 @@ To generate this message, Docker took the following steps:
  4. The Docker daemon streamed that output to the Docker client, which sent it
     to your terminal.
 
-To check the version of the Docker engine run the following commadn:
+To check the version of the Docker engine run the following command:
 ```
 docker --version
 ```
@@ -195,22 +227,25 @@ The mc alias set command adds or updates an alias to the local mc configuration.
 ```
 mc alias set myminio http://127.0.0.1:9000 {MINIO_ROOT_USER} {MINIO_ROOT_PASSWORD}
 ```
+Replace each argument with the required values.  
 ALIAS  
 Required The name to associate to the S3-compatible service.
 
 URL  
-Required The URL to the S3-compatible service endpoint. For example:
+Required The URL to the S3-compatible service endpoint.   
+For example:  
 
 https://minio.example.net
 
-ACCESSKEY    
-Required  
+
+ACCESSKEY      
+Required    
 
 
 The access key for authenticating to the S3 service.  
 
 SECRETKEY  
-Required  
+Required    
 
 The secret key for authenticating to the S3 service.  
 
