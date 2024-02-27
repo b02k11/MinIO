@@ -1,9 +1,19 @@
 # Table of Content  
 
-[MinIo](#minio)  
+[MinIO](#minio)   
+
 [Key Features of MinIO](#key-features-of-minio)  
+
+[Prerequisites](#prerequisites)  
+
+[System Requirement](#system-requirement)  
+
 [Difference between object storage, file storage and block storage](#difference-between-object-storage-file-storage-and-block-storage)  
+
 [Step by step guide to installation and setup](#step-by-step-guide-to-installation-and-setup)  
+
+[References](#references)  
+
 
 
 # MinIO
@@ -320,4 +330,11 @@ To remove a bucket bucket from MiniIO run the following command:
 mc rb myminio/test-bucket
 ```  
 OUTPUT:  
-Removed `myminio/test-bucket` successfully.
+Removed `myminio/test-bucket` successfully.  
+
+# References  
+https://min.io/docs/minio/linux/index.html  
+https://min.io/docs/minio/linux/administration/minio-console.html  
+https://min.io/docs/minio/linux/reference/minio-mc.html  
+https://github.com/minio/  
+https://en.wikipedia.org/wiki/MinIO  
